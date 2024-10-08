@@ -8,8 +8,9 @@
     ],
     "command": "hieroglyphic",
     "finish-args": [
-        "--socket=fallback-x11",
         "--socket=wayland",
+        "--socket=fallback-x11",
+        "--share=ipc",
         "--device=dri",
         "--env=G_MESSAGES_DEBUG=none",
         "--env=RUST_BACKTRACE=1"
