@@ -17,27 +17,15 @@
         "--env=RUST_BACKTRACE=1"
     ],
     "build-options": {
-        "append-path": "/usr/lib/sdk/rust-stable/bin",
-        "env": {
-            "ORT_LIB_LOCATION": "/lib"
-        }
+        "append-path": "/usr/lib/sdk/rust-stable/bin"
     },
     "modules": [
         {
-            "name": "hieroglyphic",
-            "buildsystem": "meson",
-            "run-tests": false,
-            "sources": [
-                {
-                    "type": "archive",
-                     "url": "https://github.com/FineFindus/Hieroglyphic/releases/download/v2.2.0/hieroglyphic-2.2.0.tar.xz",
-                    "sha256": "a09c3f6c47b946290d2506e6c65d2f90b4db98eae64e0c5631e7cfb8bd6f9bd7"
-                }
-            ]
-        },
-        {
             "name": "onnxruntime",
             "buildsystem": "simple",
+            "build-commands": [
+                "cp -r --no-target-directory ./lib /app/lib"
+            ],
             "sources": [
                 {
                     "only-arches": [
@@ -54,6 +42,24 @@
                     "sha256": "b4d7c6e2c45f8edabe5d28e9bc59ec8d5a4a4af36660cda16e94b2ad85f2a52a",
                     "type": "archive",
                     "url": "https://github.com/microsoft/onnxruntime/releases/download/v1.20.0/onnxruntime-linux-aarch64-1.20.0.tgz"
+                }
+            ]
+        },
+        {
+            "name": "hieroglyphic",
+            "buildsystem": "meson",
+            "run-tests": false,
+            "build-options": {
+                "env": {
+                    "ORT_STRATEGY": "system",
+                    "ORT_LIB_LOCATION": "/app/lib"
+                }
+            },
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/FineFindus/Hieroglyphic/releases/download/v2.2.0/hieroglyphic-2.2.0.tar.xz",
+                    "sha256": "5c55f507beb824baf76025532827a74b54192612579b81b0165b936dc169b93f"
                 }
             ]
         }
