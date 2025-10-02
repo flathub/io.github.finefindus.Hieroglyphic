@@ -17,14 +17,20 @@
         "--env=RUST_BACKTRACE=1"
     ],
     "build-options": {
-        "append-path": "/usr/lib/sdk/rust-stable/bin"
+        "append-path": "/usr/lib/sdk/rust-stable/bin",
+        "env": {
+            "ORT_STRATEGY": "system",
+            "ORT_LIB_LOCATION": "/app/lib/",
+            "RUSTFLAGS": "-L /app/lib"
+        }
     },
     "modules": [
         {
             "name": "onnxruntime",
             "buildsystem": "simple",
             "build-commands": [
-                "cp -r --no-target-directory ./lib /app/lib"
+                "cp -r --no-target-directory lib/ /app/lib/",
+                "cp -r --no-target-directory include/ /app/include/"
             ],
             "sources": [
                 {
@@ -49,12 +55,6 @@
             "name": "hieroglyphic",
             "buildsystem": "meson",
             "run-tests": false,
-            "build-options": {
-                "env": {
-                    "ORT_STRATEGY": "system",
-                    "ORT_LIB_LOCATION": "/app/lib"
-                }
-            },
             "sources": [
                 {
                     "type": "archive",
