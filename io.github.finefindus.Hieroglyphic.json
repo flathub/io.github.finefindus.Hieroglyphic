@@ -1,7 +1,7 @@
 {
     "id": "io.github.finefindus.Hieroglyphic",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "49",
+    "runtime-version": "50",
     "sdk": "org.gnome.Sdk",
     "sdk-extensions": [
         "org.freedesktop.Sdk.Extension.rust-stable"
@@ -19,9 +19,8 @@
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-stable/bin",
         "env": {
-            "ORT_STRATEGY": "system",
-            "ORT_LIB_LOCATION": "/app/lib/",
-            "RUSTFLAGS": "-L /app/lib"
+            "ORT_LIB_PATH": "/app/lib",
+            "ORT_PREFER_DYNAMIC_LINK": "1"
         }
     },
     "modules": [
@@ -29,25 +28,29 @@
             "name": "onnxruntime",
             "buildsystem": "simple",
             "build-commands": [
-                "cp -r --no-target-directory lib/ /app/lib/",
-                "cp -r --no-target-directory include/ /app/include/"
+                "cp -r --no-target-directory lib/ /app/lib/"
+            ],
+            "cleanup": [
+                "/include",
+                "/lib/pkgconfig",
+                "/lib/cmake"
             ],
             "sources": [
                 {
                     "only-arches": [
                         "x86_64"
                     ],
-                    "sha256": "b6deea7f2e22c10c043019f294a0ea4d2a6c0ae52a009c34847640db75ec5580",
+                    "sha256": "4c436a280d650f8bf32c921a2bf4de7c42cc32884c51c90e47de991708bbb5a4",
                     "type": "archive",
-                    "url": "https://github.com/microsoft/onnxruntime/releases/download/v1.23.0/onnxruntime-linux-x64-1.23.0.tgz"
+                    "url": "https://github.com/microsoft/onnxruntime/releases/download/v1.24.3/onnxruntime-linux-x64-1.24.3.tgz"
                 },
                 {
                     "only-arches": [
                         "aarch64"
                     ],
-                    "sha256": "0b9f47d140411d938e47915824d8daaa424df95a88b5f1fc843172a75168f7a0",
+                    "sha256": "15100fb88b4c692cdd6bf2cca5f4a26a3806cebca8136de6681e2aba4b2ea033",
                     "type": "archive",
-                    "url": "https://github.com/microsoft/onnxruntime/releases/download/v1.23.0/onnxruntime-linux-aarch64-1.23.0.tgz"
+                    "url": "https://github.com/microsoft/onnxruntime/releases/download/v1.24.3/onnxruntime-linux-aarch64-1.24.3.tgz"
                 }
             ]
         },
@@ -58,8 +61,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/FineFindus/Hieroglyphic/releases/download/v2.2.0/hieroglyphic-2.2.0.tar.xz",
-                    "sha256": "5c55f507beb824baf76025532827a74b54192612579b81b0165b936dc169b93f"
+                    "url": "https://github.com/FineFindus/Hieroglyphic/releases/download/v2.3.0/hieroglyphic-2.3.0.tar.xz",
+                    "sha256": "4155a698076d1fb4ff97a6da92776017f65c9d75ff3f35768067ffe624dc9192"
                 }
             ]
         }
